@@ -1,41 +1,64 @@
+html,
+body {
+    position: relative;
+    height: 100%;
+}
 body {
     padding: 0;
     margin: 0;
-    background: #f2f6e9;
+    background-image: url("/img/cancun.jpg");
+    background-size: 100%;
 }
 
+header {
+    position: sticky;
+    top: 0;
+    background-color: #6ab446;
+    padding: 1rem;
+    width: 100%;
+    height: 20%;
+}
+#app {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
 .navbar {
-    background: #6ab446;
+    margin-bottom: 0;
 }
 .navbar-brand {
     color: #fff;
     cursor: pointer;
 }
 
-.header {
-    background-size: cover;
-    background-position: center;
-    position: relative;
+#main {
+    flex-grow: 2;
 }
-
-.overlay {
-    position: absolute;
-    min-height: 100%;
-    min-width: 100%;
-    left: 0;
-    top: 0;
-    background: rgba(0, 0, 0, 0.6);
+#main .info {
+    font-style: italic;
+}
+.mainButtons {
+    width: 100%;
+    display: flex;
+    justify-content: inherit;
+    flex-wrap: wrap;
+}
+.mainButtons > button {
+    margin: 1rem;
 }
 
 .description {
-	left: 50%;
-	position: absolute;
-	top: 45%;
-	transform: translate(-50%, -55%);
-	text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    justify-content: center;
+    height: 100%;
 }
 .description h1 {
 	color: #6ab446;
+	text-align: center;
+    margin-bottom: 5rem;
 }
 .description button {
     border:1px solid #6ab446;
@@ -49,9 +72,24 @@ body {
     color:#000;
 }
 
-.container {
-  position: relative;
-  width: 50%;
+form {
+  margin-top: 10rem;
+  margin-left: 20rem;
+  margin-right: 20rem;
+}
+form button {
+  margin: 2rem;
+  display: block;
+  overflow: hidden;
+}
+form input {
+  margin-bottom: 2rem;
+}
+
+#guests {
+  width: 3rem;
+  display: block;
+  overflow: hidden;
 }
 
 .modal-content {
@@ -61,7 +99,7 @@ body {
 .modal-header {
     border-bottom: none;
 }
-.modal h5 {
+.modal h3 {
     color: #000;
     font-size: 30px;
     margin: 0 0 25px;
@@ -86,9 +124,6 @@ body {
 .modal .close span {
     position: relative;
     top: -3px;
-}
-.modal-body p {
-    color: #999;
 }
 .modal .form-control,
 .modal .btn {

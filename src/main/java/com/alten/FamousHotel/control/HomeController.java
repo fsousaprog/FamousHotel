@@ -11,8 +11,17 @@ public class HomeController {
 
     @GetMapping
     public String showHome(Model model) {
-        model.addAttribute("name", "Bla bla");
         return "home";
+    }
+
+    @GetMapping("booking")
+    public String showBooking(Model model) {
+        return "booking";
+    }
+
+    @GetMapping("manageReservation")
+    public String showManageReservation(Model model) {
+        return "manageReservation";
     }
 
 }

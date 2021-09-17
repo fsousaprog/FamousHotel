@@ -1,30 +1,69 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml" lang="en">
     <head>
         <title>Famous Hotel Booking</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" th:href="@{/css/main.css}"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" th:href="@{/css/main.css}" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     </head>
-    <body>
-        <nav class="navbar navbar-expand-md">
-            <a class="navbar-brand" href="">Home</a>
-        </nav>
+    <body onload="getCalendar()">
 
-        <header class="page-header header container-fluid">
-            <div class="overlay"></div>
+        <div id="app">
+            <header class="header container-fluid">
+                <nav class="navbar navbar-expand-md">
+                    <a class="navbar-brand" href="/">Home</a>
+                </nav>
+            </header>
 
-            <input type="text" name="stay" class="form-control col-6" />
+            <section id='main'>
+                <form action="#" th:action="@{/placeReservation}" th:object="${reservationBean}" method="post">
+                    <div class="description">
+                        <label>Stay Period</label>
+                        <input type="text" id="stay" th:field="*{stay}" class="form-control" required />
+                        <label>Number of Guests</label>
+                        <input type="number" id="guests" th:field="*{guests}" required />
+                    </div>
+                    <div>
+                        <p class="info">Your ID must be an identification document number (RG/CPF/SIN/SSN)</p>
+                        <div class="input-group">
+                            <input type="number" th:field="*{id}" class="form-control" placeholder="RG/CPF/SIN/SSN" required />
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"> Place Reservation</i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
 
-        </header>
+<!--            <section id='main'>-->
+<!--                <form:form action="/placeReservation" modelAttribute="reservationBean" method="POST">-->
+<!--                    <div class="description">-->
+<!--                        <form:input path="stay" type="text" id="stay" class="form-control col-6" required />-->
+<!--                        <form:label>Guests</form:label><form:input path="guests" type="number" class="form-control col-2" required />-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <p class="info">Your ID must be an identification document number (RG/CPF/SIN/SSN)</p>-->
+<!--                        <div class="input-group">-->
+<!--                            <form:input type="number" path="id" class="form-control" placeholder="RG/CPF/SIN/SSN" required />-->
+<!--                            <div class="input-group-append">-->
+<!--                                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok">&nbsp Place Reservation</i></button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form:form>-->
+<!--            </section>-->
+<!--        </div>-->
 
-        <script src="/js/home.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="/js/main.js"></script>
+
     </body>
 </html>

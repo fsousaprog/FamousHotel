@@ -14,11 +14,11 @@ This API has the purpose to help book the only and disputed room of the Famous H
 ### Diagrams
 Use Case
 
-![Use Case](src/_docs_/Use Case Diagram.jpg)
+![Use Case](src/_docs/Use Case Diagram.jpg)
 
 Entity
 
-![Entity](src/_docs_/Entity Diagram.jpg)
+![Entity](src/_docs/Entity Diagram.jpg)
 
 ***
 ### Technologies

@@ -1,28 +1,47 @@
 package com.alten.FamousHotel.control;
 
+import com.alten.FamousHotel.model.ReservationBean;
+import com.alten.FamousHotel.entity.Reservation;
 import com.alten.FamousHotel.service.ReservationService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/reservation")
 public class ReservationController {
 
     @Autowired
     private ReservationService service;
 
     @GetMapping("/datesOccupied")
-    public String getDatesOccupied(Model model) {
-        Map<String, String> datesOccupied = new HashMap<>();
-        service.findAll().forEach(res -> datesOccupied.put(res.getCheckin(), res.getCheckout()));
-        model.addAttribute("occupation", datesOccupied);
-        return "booking";
+    public @ResponseBody
+    String getDatesOccupied() {
+        JSONObject json = new JSONObject();
+        this.service.findAll().forEach(res -> json.put(res.getCheckin().toString(), res.getCheckout().toString()));
+        return json.toString();
+    }
+
+    @GetMapping("/getReservation")
+    public @ResponseBody
+    Reservation getReservationById(@RequestParam String id) {
+        return this.service.findById(Long.parseLong(id));
+    }
+
+    @PostMapping("/placeReservation")
+    public String saveReservation(@ModelAttribute("reservationBean")ReservationBean reservationBean,
+                                BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "error";
+        }
+        model.addAttribute("reservationBean", reservationBean);
+        this.service.save(reservationBean);
+
+        //TODO:Show alert of success or failure
+
+        return "home";
     }
 
 }

@@ -5,33 +5,34 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" th:href="@{/css/main.css}" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
     </head>
     <body>
-        <nav class="navbar navbar-expand-md">
-            <a class="navbar-brand" href="">Home</a>
-        </nav>
 
-        <header class="page-header header container-fluid">
-            <div class="overlay"></div>
+        <div id="app">
+            <header class="header container-fluid">
+                <nav class="navbar navbar-expand-md">
+                    <a class="navbar-brand" href="/">Home</a>
+                </nav>
+            </header>
 
-            <div class="description">
-                <h1>Welcome to Famous Hotel booking page!</h1>
-                <div class="col-md-10 mainButtons">
-                    <button class="btn btn-lg pull-left" onclick="window.location.href='reservation/datesOccupied'">
-                        <i class="glyphicon glyphicon-calendar"></i> See availability! </button>
-                    <button class="btn btn-lg pull-right" data-toggle="modal" data-target="#identifier-modal">
-                        <i class="glyphicon glyphicon-edit"></i> Already have a reservation </button>
+            <section id='main'>
+                <div class="description">
+                    <h1>Welcome to Famous Hotel booking page!</h1>
+                    <div class="mainButtons">
+                        <button class="btn btn-lg pull-left" onclick="window.location.href='booking'">
+                            <i class="glyphicon glyphicon-calendar"></i> See availability! </button>
+                        <button class="btn btn-lg pull-right" type="button" data-toggle="modal" data-target="#searchIdentifierModal">
+                            <i class="glyphicon glyphicon-edit"></i> Already have a reservation </button>
+                    </div>
                 </div>
-            </div>
+            </section>
+        </div>
 
-        </header>
-
-        <script src="/js/main.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
-        <div id="identifier-modal" class="modal fade">
+        <div id="searchIdentifierModal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -40,11 +41,11 @@
                         </button>
                     </div>
                     <div class="modal-body text-center">
-                        <h5>Find your reservation by your ID</h5>
+                        <h3>Find your reservation by your ID</h3>
                         <div class="input-group">
-                            <input type="number" class="form-control" placeholder="CPF/SIN" name="identifier">
+                            <input type="number" class="form-control" placeholder="RG/CPF/SIN/SSN" name="identifier">
                             <div class="input-group-append">
-                                <input type="submit" class="btn glyphicon glyphicon-search">
+                                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
                         </div>
                     </div>
