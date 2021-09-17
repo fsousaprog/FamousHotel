@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <title>Famous Hotel Home</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" th:href="@{/css/main.css}" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md">
+            <a class="navbar-brand" href="">Home</a>
+        </nav>
+
+        <header class="page-header header container-fluid">
+            <div class="overlay"></div>
+
+            <div class="description">
+                <h1>Welcome to Famous Hotel booking page!</h1>
+                <div class="col-md-10 mainButtons">
+                    <button class="btn btn-lg pull-left" onclick="window.location.href='reservation/datesOccupied'">
+                        <i class="glyphicon glyphicon-calendar"></i> See availability! </button>
+                    <button class="btn btn-lg pull-right" data-toggle="modal" data-target="#identifier-modal">
+                        <i class="glyphicon glyphicon-edit"></i> Already have a reservation </button>
+                </div>
+            </div>
+
+        </header>
+
+        <script src="/js/main.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+        <div id="identifier-modal" class="modal fade">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                            <span>x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <h5>Find your reservation by your ID</h5>
+                        <div class="input-group">
+                            <input type="number" class="form-control" placeholder="CPF/SIN" name="identifier">
+                            <div class="input-group-append">
+                                <input type="submit" class="btn glyphicon glyphicon-search">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
