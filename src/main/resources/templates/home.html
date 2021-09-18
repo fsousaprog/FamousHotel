@@ -1,57 +1,66 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head>
-        <title>Famous Hotel Home</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" th:href="@{/css/main.css}" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
-    </head>
-    <body>
+<head>
+    <title>Famous Hotel Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+</head>
 
-        <div id="app">
-            <header class="header container-fluid">
-                <nav class="navbar navbar-expand-md">
-                    <a class="navbar-brand" href="/">Home</a>
-                </nav>
-            </header>
+<body>
+<div id="app">
+    <header class="header container-fluid">
+        <nav class="navbar navbar-expand-md">
+            <a class="navbar-brand" href="/">Home</a>
+        </nav>
+    </header>
 
-            <section id='main'>
+    <section id='main'>
+        <div class="panel panel-default">
+            <div class="panel-body">
                 <div class="description">
-                    <h1>Welcome to Famous Hotel booking page!</h1>
+                    <h1>Welcome to Famous Hotel</h1>
+                    <p class="info">Due to COVID-19 we had to close most of our hotels, but we've kept our best one, and
+                        it's open again!</p>
                     <div class="mainButtons">
                         <button class="btn btn-lg pull-left" onclick="window.location.href='booking'">
-                            <i class="glyphicon glyphicon-calendar"></i> See availability! </button>
-                        <button class="btn btn-lg pull-right" type="button" data-toggle="modal" data-target="#searchIdentifierModal">
-                            <i class="glyphicon glyphicon-edit"></i> Already have a reservation </button>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
-        <div id="searchIdentifierModal" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                            <span>x</span>
+                            <i class="glyphicon glyphicon-calendar"></i> See availability!
                         </button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <h3>Find your reservation by your ID</h3>
-                        <div class="input-group">
-                            <input type="number" class="form-control" placeholder="RG/CPF/SIN/SSN" name="identifier">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-                            </div>
-                        </div>
+                        <button class="btn btn-lg pull-right" type="button" data-toggle="modal"
+                                data-target="#searchIdentifierModal">
+                            <i class="glyphicon glyphicon-edit"></i> Already have a reservation
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+</div>
 
-    </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+<div id="searchIdentifierModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-default modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span>X</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <h3>Find your reservation by your ID</h3>
+                <form th:action="@{/getReservation}" method="post">
+                    <input type="number" class="form-control" id="reservationID" name="reservationID"
+                           placeholder="RG/CPF/SIN/SSN" required/>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
 </html>

@@ -1,3 +1,8 @@
+:root {
+    --defaultColor: #e62277;
+}
+
+/*General*/
 html,
 body {
     position: relative;
@@ -10,13 +15,27 @@ body {
     background-size: 100%;
 }
 
+/*Panel*/
+.panel {
+  margin: auto;
+  width: 30%;
+  margin-top: 2rem;
+  align: center;
+}
+.panel img {
+  width: 100%;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+/*Header with navbar*/
 header {
     position: sticky;
     top: 0;
-    background-color: #6ab446;
+    background-color: var(--defaultColor);
     padding: 1rem;
     width: 100%;
-    height: 20%;
+    height: 7rem;
 }
 #app {
     display: flex;
@@ -32,6 +51,7 @@ header {
     cursor: pointer;
 }
 
+/*Main div*/
 #main {
     flex-grow: 2;
 }
@@ -48,6 +68,7 @@ header {
     margin: 1rem;
 }
 
+/*Components inside the main div*/
 .description {
     display: flex;
     flex-direction: column;
@@ -56,42 +77,52 @@ header {
     height: 100%;
 }
 .description h1 {
-	color: #6ab446;
+	color: var(--defaultColor);
 	text-align: center;
     margin-bottom: 5rem;
 }
 .description button {
-    border:1px solid #6ab446;
-    background:#6ab446;
+    border: 1px solid var(--defaultColor);
+    background: var(--defaultColor);
     border-radius: 0;
-    color:#fff;
-}
-.description button:hover {
-	border:1px solid #fff;
-    background:#fff;
-    color:#000;
+    color: #fff;
 }
 
+/*ManageReservation Page specific*/
+.manageButtons {
+    width: 70%;
+    margin: auto;
+    display: flex;
+    justify-content: inherit;
+    flex-wrap: wrap;
+}
+.manageButtons > button {
+    margin: 1rem;
+}
+
+/*Forms*/
 form {
-  margin-top: 10rem;
-  margin-left: 20rem;
-  margin-right: 20rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 form button {
-  margin: 2rem;
-  display: block;
-  overflow: hidden;
+  margin-bottom: 2rem;
+  float: right;
 }
 form input {
   margin-bottom: 2rem;
 }
-
+#reservationID,
+#stay {
+  width: 100%;
+}
 #guests {
-  width: 3rem;
-  display: block;
+  width: 6rem;
   overflow: hidden;
 }
 
+/*Modal*/
 .modal-content {
     border-radius: 0;
     padding: 2rem;
@@ -100,11 +131,15 @@ form input {
     border-bottom: none;
 }
 .modal h3 {
-    color: #000;
+    color: var(--defaultColor);
     font-size: 30px;
     margin: 0 0 25px;
     font-weight: bold;
-    text-transform: capitalize;
+}
+.modal input {
+  width: 50%;
+  overflow: hidden;
+  display: inline-block;
 }
 .modal .close {
     background: #c0c3c8;
@@ -123,7 +158,6 @@ form input {
 }
 .modal .close span {
     position: relative;
-    top: -3px;
 }
 .modal .form-control,
 .modal .btn {
@@ -135,8 +169,4 @@ form input {
     color: #fff;
     min-width: 150px;
     transition: all 0.4s;
-}
-.modal .btn:hover,
-.modal .btn:focus {
-    background-color: #12968d;
 }

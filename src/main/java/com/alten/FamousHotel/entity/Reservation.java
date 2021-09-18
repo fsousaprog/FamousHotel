@@ -16,7 +16,8 @@ public class Reservation {
     @Column(nullable = false)
     private int guests;
 
-    protected  Reservation() {}
+    protected Reservation() {
+    }
 
     public Reservation(Long id, String checkin, String checkout, int guests) {
         this.id = id;
@@ -57,10 +58,15 @@ public class Reservation {
         this.guests = guests;
     }
 
+    /**
+     * For better readability when printing the bean
+     *
+     * @return String
+     */
     @Override
     public String toString() {
         return String.format(
-                "ID: %d, Check-in: %s, Checkout: %s, Guests: %d",
+                "ID: %d, Check-in: %s, Check-out: %s, Guests: %d",
                 this.id, this.checkin, this.checkout, this.guests);
     }
 

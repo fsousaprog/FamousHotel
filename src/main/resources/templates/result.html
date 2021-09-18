@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Famous Hotel Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+</head>
+
+<body>
+<div id="app">
+    <header class="header container-fluid">
+        <nav class="navbar navbar-expand-md">
+            <a class="navbar-brand" href="/">Home</a>
+        </nav>
+    </header>
+
+    <section id='main'>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="description">
+                    <h1><span th:text="${result}"></span></h1>
+                    <h4><strong>Reservation:</strong> <span th:text="${reservationDTO.toString()}"></span></h4>
+                    <p class="info">Have your ID with you at the day of the check-in</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

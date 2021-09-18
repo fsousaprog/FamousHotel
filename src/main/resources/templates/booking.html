@@ -1,69 +1,55 @@
 <!DOCTYPE HTML>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml" lang="en">
-    <head>
-        <title>Famous Hotel Booking</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" th:href="@{/css/main.css}" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    </head>
-    <body onload="getCalendar()">
+<head>
+    <title>Famous Hotel Booking</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body onload="getCalendar()">
 
-        <div id="app">
-            <header class="header container-fluid">
-                <nav class="navbar navbar-expand-md">
-                    <a class="navbar-brand" href="/">Home</a>
-                </nav>
-            </header>
+<div id="app">
+    <header class="header container-fluid">
+        <nav class="navbar navbar-expand-md">
+            <a class="navbar-brand" href="/">Home</a>
+        </nav>
+    </header>
 
-            <section id='main'>
-                <form action="#" th:action="@{/placeReservation}" th:object="${reservationBean}" method="post">
+    <section id='main'>
+        <div id="panelBooking" class="panel panel-default">
+            <div class="panel-body">
+                <form th:action="@{/placeReservation}" th:object="${reservationDTO}" method="post">
                     <div class="description">
-                        <label>Stay Period</label>
-                        <input type="text" id="stay" th:field="*{stay}" class="form-control" required />
-                        <label>Number of Guests</label>
-                        <input type="number" id="guests" th:field="*{guests}" required />
-                    </div>
-                    <div>
+                        <img src="/img/hotel_room.jpg">
+                        <label for="stay">Stay Period</label>
+                        <input type="text" id="stay" th:field="*{stay}" class="form-control"
+                               autocomplete="off" required/>
+                        <label for="guests">Number of Guests</label>
+                        <input type="number" min="1" max="8" id="guests" th:field="*{guests}"
+                               class="form-control" required/>
                         <p class="info">Your ID must be an identification document number (RG/CPF/SIN/SSN)</p>
-                        <div class="input-group">
-                            <input type="number" th:field="*{id}" class="form-control" placeholder="RG/CPF/SIN/SSN" required />
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"> Place Reservation</i></button>
-                            </div>
+                        <input type="number" id="reservationID" th:field="*{id}" class="form-control"
+                               placeholder="RG/CPF/SIN/SSN" required/>
+                        <div class="mainButtons">
+                            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"> Place
+                                Reservation</i></button>
                         </div>
                     </div>
                 </form>
-            </section>
+            </div>
         </div>
+    </section>
+</div>
 
-<!--            <section id='main'>-->
-<!--                <form:form action="/placeReservation" modelAttribute="reservationBean" method="POST">-->
-<!--                    <div class="description">-->
-<!--                        <form:input path="stay" type="text" id="stay" class="form-control col-6" required />-->
-<!--                        <form:label>Guests</form:label><form:input path="guests" type="number" class="form-control col-2" required />-->
-<!--                    </div>-->
-<!--                    <div>-->
-<!--                        <p class="info">Your ID must be an identification document number (RG/CPF/SIN/SSN)</p>-->
-<!--                        <div class="input-group">-->
-<!--                            <form:input type="number" path="id" class="form-control" placeholder="RG/CPF/SIN/SSN" required />-->
-<!--                            <div class="input-group-append">-->
-<!--                                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok">&nbsp Place Reservation</i></button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </form:form>-->
-<!--            </section>-->
-<!--        </div>-->
+<script src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="/js/main.js"></script>
 
-        <script src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="/js/main.js"></script>
-
-    </body>
+</body>
 </html>
