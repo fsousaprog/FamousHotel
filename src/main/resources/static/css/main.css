@@ -76,16 +76,19 @@ header {
     justify-content: center;
     height: 100%;
 }
-.description h1 {
+.description h3 {
 	color: var(--defaultColor);
 	text-align: center;
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
 }
 .description button {
     border: 1px solid var(--defaultColor);
     background: var(--defaultColor);
     border-radius: 0;
     color: #fff;
+}
+.description h4 {
+  display: inline-block;
 }
 
 /*ManageReservation Page specific*/
@@ -136,8 +139,8 @@ form input {
     margin: 0 0 25px;
     font-weight: bold;
 }
-.modal input {
-  width: 50%;
+.modal #reservationID {
+  width: 70%;
   overflow: hidden;
   display: inline-block;
 }
@@ -161,12 +164,12 @@ form input {
 }
 .modal .form-control,
 .modal .btn {
-    min-height: 46px;
+    min-height: 45px;
 }
 .modal .btn {
     background-color: #1da098;
     border: none;
     color: #fff;
-    min-width: 150px;
+    min-width: 130px;
     transition: all 0.4s;
 }

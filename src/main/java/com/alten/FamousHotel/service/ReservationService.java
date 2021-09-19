@@ -1,21 +1,24 @@
 package com.alten.FamousHotel.service;
 
 import com.alten.FamousHotel.entity.Reservation;
-import com.alten.FamousHotel.model.ReservationDTO;
 import com.alten.FamousHotel.repository.ReservationRepository;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+
+import static com.alten.FamousHotel.util.Constants.MAX_DAYS_ADVANCE;
+import static com.alten.FamousHotel.util.Constants.MIN_DAYS_ADVANCE;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Stream.iterate;
 
 /**
- * Responsible for intermediation between the persistence and the system, to avoid giving access to the database for just anyone
- * There is a bean method for any entity method, so entities don't go to the front
+ * Responsible for intermediation between the persistence layer and the API
  */
 @Service
 @Transactional
@@ -27,32 +30,11 @@ public class ReservationService {
     private ReservationRepository repository;
 
     public List<Reservation> findAll() {
-        return (List<Reservation>) this.repository.findAll();
-    }
-
-    public List<ReservationDTO> findAllBean() {
-        List<ReservationDTO> beans = new ArrayList<>();
-        this.repository.findAll().forEach(
-                res -> beans.add(new ReservationDTO(res.getId(), res.getCheckin(), res.getCheckout(), res.getGuests())));
-        log.info("Total of items from findAll: " + beans.size());
-        return beans;
+        return this.repository.findAll();
     }
 
     public Reservation findById(Long id) {
         return this.repository.findById(id).orElse(null);
-    }
-
-    public ReservationDTO findByIdBean(Long id) {
-        Reservation reservation = this.repository.findById(id).orElse(null);
-        if (reservation != null) {
-            ReservationDTO bean = new ReservationDTO(
-                    reservation.getId(), reservation.getCheckin(), reservation.getCheckout(), reservation.getGuests());
-            bean.updateStay();
-            log.info("Reservation found with findById");
-            return bean;
-        }
-        log.warn("No reservation was found with the ID: " + id);
-        return null;
     }
 
     public void save(Reservation reservation) {
@@ -60,22 +42,8 @@ public class ReservationService {
         log.info("Reservation saved with success!");
     }
 
-    public void save(@NotNull ReservationDTO bean) {
-        bean.updateStay();
-        this.repository.save(new Reservation(
-                Long.parseLong(bean.getId()), bean.getCheckin(), bean.getCheckout(), Integer.parseInt(bean.getGuests())));
-        log.info("Reservation saved with success!");
-    }
-
     public void delete(Reservation reservation) {
         this.repository.delete(reservation);
-        log.info("Reservation deleted!");
-    }
-
-    public void delete(@NotNull ReservationDTO bean) {
-        bean.updateStay();
-        this.repository.delete(new Reservation(
-                Long.parseLong(bean.getId()), bean.getCheckin(), bean.getCheckout(), Integer.parseInt(bean.getGuests())));
         log.info("Reservation deleted!");
     }
 
@@ -88,6 +56,33 @@ public class ReservationService {
             log.error("Reservation not found! ID: " + id);
             throw new Exception("Reservation not found! ID: " + id);
         }
+    }
+
+    public List<LocalDate> getDatesAvailable() {
+        List<LocalDate> datesOccupied = this.getDatesOccupied();
+
+        /* Using Java 8 stream, iterates through all days between the minimum and maximum reservation date,
+         * then add them all into a list, remove the occupied dates from that list and sort it */
+        Set<LocalDate> datesAvailable = new HashSet<>(
+                iterate(LocalDate.now().plusDays(MIN_DAYS_ADVANCE), date -> date.plusDays(1))
+                        .limit(MAX_DAYS_ADVANCE).collect(toList()));
+        datesOccupied.forEach(datesAvailable::remove);
+
+        List<LocalDate> sortedList = new ArrayList<>(datesAvailable);
+        Collections.sort(sortedList);
+        return sortedList;
+    }
+
+    public List<LocalDate> getDatesOccupied() {
+        List<LocalDate> datesOccupied = new ArrayList<>();
+        log.info("Fetching dates that already have a reservation");
+        //Gets every date between check-in and check-out
+        for (Reservation res : this.findAll()) {
+            long numOfDays = ChronoUnit.DAYS.between(res.getCheckin(), res.getCheckout());
+            datesOccupied.addAll(iterate(res.getCheckin(), date -> date.plusDays(1))
+                    .limit(numOfDays + 1).collect(toList()));
+        }
+        return datesOccupied;
     }
 
 }

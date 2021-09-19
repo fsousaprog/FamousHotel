@@ -21,9 +21,9 @@
     <section id='main'>
         <div id="panelBooking" class="panel panel-default">
             <div class="panel-body">
+                <img src="/img/hotel_room.jpg">
                 <form th:action="@{/placeReservation}" th:object="${reservationDTO}" method="post">
                     <div class="description">
-                        <img src="/img/hotel_room.jpg">
                         <label for="stay">Stay Period</label>
                         <input type="text" id="stay" th:field="*{stay}" class="form-control"
                                autocomplete="off" required/>

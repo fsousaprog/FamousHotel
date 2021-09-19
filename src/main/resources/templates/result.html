@@ -21,8 +21,12 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="description">
-                    <h1><span th:text="${result}"></span></h1>
-                    <h4><strong>Reservation:</strong> <span th:text="${reservationDTO.toString()}"></span></h4>
+                    <h3><span th:text="${result}"></span></h3>
+                    <h4><strong>Reservation:</strong></h4>
+                    <label>ID: <h4 th:text="${reservationDTO.getId()}"></h4></label>
+                    <label>Check-in: <h4 th:text="${reservationDTO.getCheckinOrEmpty()}"></h4></label>
+                    <label>Check-out: <h4 th:text="${reservationDTO.getCheckoutOrEmpty()}"></h4></label>
+                    <label>Guests: <h4 th:text="${reservationDTO.getGuestsOrEmpty()}"></h4></label>
                     <p class="info">Have your ID with you at the day of the check-in</p>
                 </div>
             </div>
@@ -32,6 +36,15 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+<!--Makes the browser back button go to home page-->
+<script type="text/javascript">
+bajb_backdetect.OnBack = function()
+{
+    alert('You clicked it!');
+    window.location.href = "http://localhost:8080";
+}
+</script>
 
 </body>
 </html>

@@ -1,15 +1,16 @@
 /*Creates the Calendar with range picker, and restrict it.
-The user may select up to 3 days of stay, and not after 30 days from today.
 The days that already have reservations will be blocked*/
 function getCalendar() {
-    //Get dates already reserved from the controller
-    var datesOccupied
+    //Get the restrictions and dates already reserved from the controller
+    var restrictions;
+    var datesOccupied;
     $.ajax ({
-        url : "/datesOccupied",
+        url : "/getAvailability",
         type : "get",
-        dataType : "text",
+        dataType : "json",
         success : function(response) {
-            datesOccupied = response.split(",");
+            restrictions = JSON.parse(response);
+            datesOccupied = restrictions.datesOccupied;
         },
         error : function(request, textStatus, errorThrown) {
             alert("Error trying to get Calendar: " + textStatus + " " + errorThrown);
@@ -19,7 +20,7 @@ function getCalendar() {
     //Create the Date picker already with the restrictions
     $('#stay').daterangepicker({
         "locale": {
-           "format": "YYYY/MM/DD",
+           "format": restrictions.dateFormat,
            "separator": " - ",
            "applyLabel": "Confirm",
            "cancelLabel": "Cancel",
@@ -52,10 +53,10 @@ function getCalendar() {
            ]
         },
         "maxSpan": {
-            "days": 2
+            "days": restrictions.maxSpan;
         },
-        "minDate": moment().add(1, "days"),
-        "maxDate": moment().add(30, "days"),
+        "minDate": restrictions.minDate,
+        "maxDate": restrictions.maxDate,
         "autoUpdateInput": false,
         "isInvalidDate": function(arg) {
             console.log("Dates occupied: " + datesOccupied);
@@ -81,19 +82,21 @@ function getCalendar() {
         }
     });
 
-    //Clear the date input and format
+    //Format field and clear the date input
     $("#stay").on("apply.daterangepicker",function(e,picker) {
-        $(this).val(picker.startDate.format("YYYY/MM/DD") + " - " + picker.endDate.format("YYYY/MM/DD"));
+        var dateFormat = restrictions.dateFormat;
+
+        $(this).val(picker.startDate.format(dateFormat) + " - " + picker.endDate.format(dateFormat));
 
         // Get the selected bound dates.
-        var startDate = picker.startDate.format("YYYY/MM/DD")
-        var endDate = picker.endDate.format("YYYY/MM/DD")
+        var startDate = picker.startDate.format(dateFormat)
+        var endDate = picker.endDate.format(dateFormat)
         console.log(startDate + " to " + endDate);
 
         // Compare the dates again.
         var clearInput = false;
-        for(i=0;i<datesOccupied.length;i++){
-            if(startDate<datesOccupied[i] && endDate>datesOccupied[i]){
+        for(i = 0; i < datesOccupied.length; i++){
+            if(startDate < datesOccupied[i] && endDate > datesOccupied[i]){
                 console.log("Found a disabled Date in selection!");
                 clearInput = true;
                 break;

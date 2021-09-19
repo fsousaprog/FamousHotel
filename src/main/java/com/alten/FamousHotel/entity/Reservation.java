@@ -1,25 +1,32 @@
 package com.alten.FamousHotel.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.time.LocalDate;
+
+import static com.alten.FamousHotel.util.Constants.DATE_FORMAT;
 
 @Entity
 public class Reservation {
 
     @Id
     private Long id;
+    @JsonFormat(pattern = DATE_FORMAT)
     @Column(nullable = false)
-    private String checkin;
+    private LocalDate checkin;
+    @JsonFormat(pattern = DATE_FORMAT)
     @Column(nullable = false)
-    private String checkout;
+    private LocalDate checkout;
     @Column(nullable = false)
     private int guests;
 
     protected Reservation() {
     }
 
-    public Reservation(Long id, String checkin, String checkout, int guests) {
+    public Reservation(Long id, LocalDate checkin, LocalDate checkout, int guests) {
         this.id = id;
         this.checkin = checkin;
         this.checkout = checkout;
@@ -34,19 +41,19 @@ public class Reservation {
         this.id = id;
     }
 
-    public String getCheckin() {
+    public LocalDate getCheckin() {
         return checkin;
     }
 
-    public void setCheckin(String checkin) {
+    public void setCheckin(LocalDate checkin) {
         this.checkin = checkin;
     }
 
-    public String getCheckout() {
+    public LocalDate getCheckout() {
         return checkout;
     }
 
-    public void setCheckout(String checkout) {
+    public void setCheckout(LocalDate checkout) {
         this.checkout = checkout;
     }
 
