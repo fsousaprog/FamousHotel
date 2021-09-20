@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -47,10 +46,10 @@ public class ReservationController {
     }
 
     @PostMapping("/reservation")
-    public ResponseEntity<String> save(@Validated @RequestBody Reservation reservation) {
+    public ResponseEntity<String> save(@RequestBody Reservation reservation) {
         if (this.service.findById(reservation.getId()) != null) {
-            log.info("Reservation already exists");
-            return new ResponseEntity<>("Reservation already exists", HttpStatus.OK);
+            log.info("Reservation already exists for this ID" + reservation.getId());
+            return new ResponseEntity<>("Reservation already exists for this ID: "+reservation.getId(), HttpStatus.OK);
         }
         LocalDate checkin = reservation.getCheckin();
         LocalDate checkout = reservation.getCheckout();
@@ -84,15 +83,15 @@ public class ReservationController {
     }
 
     @PutMapping("/reservation")
-    public ResponseEntity<String> update(@Validated @RequestBody Reservation reservation) {
+    public ResponseEntity<String> update(@RequestBody Reservation reservation) {
         Reservation old = this.service.findById(reservation.getId());
         if (old != null) {
             this.service.save(reservation);
             log.info("Reservation updated with success");
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("Reservation updated with success", HttpStatus.OK);
         }
         log.info("Reservation not found with id: " + reservation.getId());
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Reservation not found with id: " + reservation.getId(), HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/reservation/{id}")
@@ -101,7 +100,7 @@ public class ReservationController {
         if (reservation != null) {
             this.service.delete(reservation);
             log.info("Reservation deleted with success! ID: " + id);
-            return new ResponseEntity<>("Reservation deletes with success", HttpStatus.OK);
+            return new ResponseEntity<>("Reservation deleted with success", HttpStatus.OK);
         }
         log.info("Reservation not found with id: " + id);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

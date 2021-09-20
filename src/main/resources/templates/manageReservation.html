@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Reservation Management</title>
     <meta charset="utf-8">
@@ -18,21 +18,24 @@
         </nav>
     </header>
 
+    <input type="hidden" id="restrictions" th:value="${restrictions}">
+
     <section id='main'>
         <div class="panel panel-default">
             <div class="panel-body">
-                <form id="reservationForm" th:action="@{/processReservation}" th:object="${reservationDTO}"
+                <form id="reservationForm" th:action="@{/processReservation}" th:object="${reservation}"
                       method="post">
                     <div class="description">
                         <label for="stay">Stay Period</label>
-                        <input type="text" id="stay" th:field="*{stay}" class="form-control"
-                               th:value="${reservationDTO.stay}" autocomplete="off" required/>
+                        <input type="text" id="stay" name="stay" class="form-control" autofocus
+                               th:value="${reservation.checkin}+' - '+${reservation.checkout}" autocomplete="off"
+                               required/>
                         <label for="guests">Number of Guests</label>
                         <input type="number" min="1" max="8" id="guests" th:field="*{guests}"
-                               th:value="${reservationDTO.guests}" class="form-control" required/>
+                               th:value="${reservation.guests}" class="form-control" required/>
                         <label for="reservationID">ID</label>
                         <input type="number" id="reservationID" th:field="*{id}" class="form-control"
-                               th:value="${reservationDTO.id}" readonly required/>
+                               th:value="${reservation.id}" readonly required/>
                     </div>
                     <div class="manageButtons">
                         <button type="submit" name="update" value="update" class="btn btn-success"><i

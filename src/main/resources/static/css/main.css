@@ -76,6 +76,7 @@ header {
     justify-content: center;
     height: 100%;
 }
+.description h1,
 .description h3 {
 	color: var(--defaultColor);
 	text-align: center;

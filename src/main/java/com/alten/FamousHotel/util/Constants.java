@@ -1,6 +1,5 @@
 package com.alten.FamousHotel.util;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 
 /**
@@ -9,9 +8,9 @@ import java.time.LocalDate;
 public class Constants {
 
     public static final String DATE_FORMAT = "yyyy/MM/dd";
-    public static final Integer MIN_DAYS_ADVANCE = 1;
-    public static final Integer MAX_DAYS_ADVANCE = 30;
-    public static final Integer MAX_STAY = 3;
+    public static final int MIN_DAYS_ADVANCE = 1;
+    public static final int MAX_DAYS_ADVANCE = 30;
+    public static final int MAX_STAY = 3;
 
 
     public static final String PAGE_HOME = "home";

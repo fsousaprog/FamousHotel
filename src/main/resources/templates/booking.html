@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Famous Hotel Booking</title>
     <meta charset="utf-8">
@@ -18,14 +18,16 @@
         </nav>
     </header>
 
+    <input type="hidden" id="restrictions" th:value="${restrictions}">
+
     <section id='main'>
         <div id="panelBooking" class="panel panel-default">
             <div class="panel-body">
                 <img src="/img/hotel_room.jpg">
-                <form th:action="@{/placeReservation}" th:object="${reservationDTO}" method="post">
+                <form th:action="@{/placeReservation}" th:object="${reservation}" method="post">
                     <div class="description">
                         <label for="stay">Stay Period</label>
-                        <input type="text" id="stay" th:field="*{stay}" class="form-control"
+                        <input type="text" id="stay" name="stay" class="form-control"
                                autocomplete="off" required/>
                         <label for="guests">Number of Guests</label>
                         <input type="number" min="1" max="8" id="guests" th:field="*{guests}"

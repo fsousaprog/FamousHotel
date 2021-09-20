@@ -50,8 +50,9 @@ Tests:
 
 ***
 ### All REST Endpoints
-[Postman](src/_docs/Hotel.postman_collection.json)
+Once started, it is possible to see all endpoints at swagger under the reservation tab http://localhost:8080/swagger-ui.html
 
+You can also import the [Postman](src/_docs/Hotel.postman_collection.json) file to your postman to have test ready requests.
 
 ***
 ### Some Instructions
@@ -71,9 +72,8 @@ Frontend:
 It's simple to configure and to use, making it fast and light.
 - CSS+Bootstrap were my choice for style. Bootstrap is an easy-to-use library
 with nice components, and CSS is a must to design HTML pages in my opinion.
-- Javascript+JQuery+Ajax for the responsivity. There is not much of them in the project,
-but they are still necessary to give some behaviours to HTML components and to communicate with
-the backend asynchronously.
+- Javascript+JQuery for the responsivity. There is not much of them in the project,
+but they are still necessary to give some behaviours to HTML components and interact with the DOM.
 
 Backend:
 - Java 8 is where I'm more used to develop, so it was my first choice purely because of experience.

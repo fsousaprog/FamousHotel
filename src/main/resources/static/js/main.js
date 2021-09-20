@@ -1,26 +1,14 @@
 /*Creates the Calendar with range picker, and restrict it.
-The days that already have reservations will be blocked*/
+The days that already have reservations or that are out of range will be blocked*/
 function getCalendar() {
-    //Get the restrictions and dates already reserved from the controller
-    var restrictions;
-    var datesOccupied;
-    $.ajax ({
-        url : "/getAvailability",
-        type : "get",
-        dataType : "json",
-        success : function(response) {
-            restrictions = JSON.parse(response);
-            datesOccupied = restrictions.datesOccupied;
-        },
-        error : function(request, textStatus, errorThrown) {
-            alert("Error trying to get Calendar: " + textStatus + " " + errorThrown);
-        }
-    });
+    //Get the restrictions from the hidden field already initialized
+    var restrictions = JSON.parse($('#restrictions')[0].value);
+    var datesOccupied = restrictions.datesOccupied;
 
     //Create the Date picker already with the restrictions
     $('#stay').daterangepicker({
         "locale": {
-           "format": restrictions.dateFormat,
+           "format": restrictions.dateFormat.toUpperCase(),
            "separator": " - ",
            "applyLabel": "Confirm",
            "cancelLabel": "Cancel",
@@ -53,10 +41,10 @@ function getCalendar() {
            ]
         },
         "maxSpan": {
-            "days": restrictions.maxSpan;
+            "days": restrictions.maxSpan
         },
-        "minDate": restrictions.minDate,
-        "maxDate": restrictions.maxDate,
+        "minDate": moment().add(restrictions.minAdvance, 'days'),
+        "maxDate": moment().add(restrictions.maxAdvance, 'days'),
         "autoUpdateInput": false,
         "isInvalidDate": function(arg) {
             console.log("Dates occupied: " + datesOccupied);
@@ -72,10 +60,8 @@ function getCalendar() {
             var thisYear = arg._d.getYear()+1900;   // Years are 1900 based
 
             var thisCompare = thisYear+"/"+thisMonth+"/"+thisDate;
-            console.log("Formatted date to compare: " + thisCompare);
 
             if($.inArray(thisCompare,datesOccupied)!=-1){
-                console.log("      ^--------- DATE FOUND HERE");
                 return true;
             }
             return false;
@@ -84,7 +70,7 @@ function getCalendar() {
 
     //Format field and clear the date input
     $("#stay").on("apply.daterangepicker",function(e,picker) {
-        var dateFormat = restrictions.dateFormat;
+        var dateFormat = restrictions.dateFormat.toUpperCase();
 
         $(this).val(picker.startDate.format(dateFormat) + " - " + picker.endDate.format(dateFormat));
 
@@ -114,4 +100,6 @@ function getCalendar() {
     $("#stay").on("cancel.daterangepicker", function(ev, picker) {
         $(this).val("");
     });
+
+    $("#stay").click();
 }
